@@ -16,13 +16,33 @@ namespace Persiafighter.Programs.RocketConfigEditor
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             MessageBox.Show("The program will search on your computer for the first occurence of Permissions.config.xml. Please wait until the file is found. This can take long if you have many files.");
-            Search();
+            SearchLocal();
             if (FilePath == "")
             {
-                MessageBox.Show("No file called Permissions.config.xml exists on your computer. Shutting down.");
-                Environment.Exit(0);
+                Search();
+                if (FilePath == "")
+                {
+                    MessageBox.Show("No file called Permissions.config.xml exists on your computer. Shutting down.");
+                    Environment.Exit(0);
+                }
             }
             Application.Run(new Editor(FilePath));
+        }
+        private static void SearchLocal()
+        {
+            try
+            {
+                foreach (string s in Directory.GetFiles("Permissions.config.xml"))
+                {
+                    FilePath = s;
+                    return;
+                }
+                if (FilePath == "")
+                {
+                    Scan(Directory.GetCurrentDirectory());
+                }
+            }
+            catch (Exception) { }
         }
         private static void Search()
         {
