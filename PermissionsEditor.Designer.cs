@@ -1,6 +1,6 @@
 ﻿namespace Persiafighter.Programs.RocketConfigEditor
 {
-    partial class Editor
+    partial class PermissionsEditor
     {
         /// <summary>
         /// Required designer variable.
@@ -136,6 +136,7 @@
             this.DName.Name = "DName";
             this.DName.Size = new System.Drawing.Size(104, 20);
             this.DName.TabIndex = 7;
+            this.DName.TextChanged += new System.EventHandler(this.DName_TextChanged);
             // 
             // Desc4
             // 
@@ -152,6 +153,7 @@
             this.Prefix.Name = "Prefix";
             this.Prefix.Size = new System.Drawing.Size(104, 20);
             this.Prefix.TabIndex = 9;
+            this.Prefix.TextChanged += new System.EventHandler(this.Prefix_TextChanged);
             // 
             // Suffix
             // 
@@ -159,6 +161,7 @@
             this.Suffix.Name = "Suffix";
             this.Suffix.Size = new System.Drawing.Size(104, 20);
             this.Suffix.TabIndex = 11;
+            this.Suffix.TextChanged += new System.EventHandler(this.Suffix_TextChanged);
             // 
             // Desc5
             // 
@@ -175,6 +178,7 @@
             this.CColor.Name = "CColor";
             this.CColor.Size = new System.Drawing.Size(104, 20);
             this.CColor.TabIndex = 13;
+            this.CColor.TextChanged += new System.EventHandler(this.CColor_TextChanged);
             // 
             // Desc6
             // 
@@ -191,6 +195,7 @@
             this.PGroup.Name = "PGroup";
             this.PGroup.Size = new System.Drawing.Size(104, 20);
             this.PGroup.TabIndex = 15;
+            this.PGroup.TextChanged += new System.EventHandler(this.PGroup_TextChanged);
             // 
             // Desc7
             // 
@@ -343,6 +348,7 @@
             this.Priority.Name = "Priority";
             this.Priority.Size = new System.Drawing.Size(104, 20);
             this.Priority.TabIndex = 30;
+            this.Priority.ValueChanged += new System.EventHandler(this.Priority_ValueChanged);
             // 
             // Cooldown
             // 
@@ -369,9 +375,8 @@
             // OpenRocket
             // 
             this.OpenRocket.FileName = "Permissions.Configuration.xml";
-            this.OpenRocket.Filter = "Xml Files|*.xml";
             // 
-            // Editor
+            // PermissionsEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -411,7 +416,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "Editor";
+            this.Name = "PermissionsEditor";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Editor";

@@ -1,25 +1,38 @@
 ﻿using Rocket.API.Serialisation;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Persiafighter.Programs.RocketConfigEditor
 {
-    public partial class Editor : Form
+    public partial class PermissionsEditor : Form
     {
-        internal Memory _mem;
-        public Editor(string FilePath)
+        internal PermissionsMemory _mem;
+        internal bool _controlled;
+        internal string _oldid;
+        public PermissionsEditor(string FilePath)
         {
             InitializeComponent();
-            _mem = new Memory(FilePath);
+
+            if (FilePath == "")
+            {
+                OpenRocket.Filter = "Rocket Permissions|" + Rocket.Core.Environment.PermissionFile;
+                if (OpenRocket.ShowDialog() == DialogResult.OK)
+                {
+                    _mem = new PermissionsMemory(OpenRocket.FileName);
+                    Text = "Editing: " + OpenRocket.FileName;
+                    _oldid = _mem._rp.DefaultGroup;
+                    DefGroup.Text = _mem._rp.DefaultGroup;
+                    _mem._rp.Groups.ForEach(k => GroupIDS.Items.Add(k.Id));
+                    GroupIDS.SelectedIndex = GroupIDS.Items.Count > 0 ? 0 : -1;
+                    RefreshGroupData();
+                    return;
+                }
+            }
+            _mem = new PermissionsMemory(FilePath);
             Text = "Editing: " + FilePath;
+            _oldid = _mem._rp.DefaultGroup;
             DefGroup.Text = _mem._rp.DefaultGroup;
             _mem._rp.Groups.ForEach(k => GroupIDS.Items.Add(k.Id));
             GroupIDS.SelectedIndex = GroupIDS.Items.Count > 0 ? 0 : -1;
@@ -55,6 +68,7 @@ namespace Persiafighter.Programs.RocketConfigEditor
 
         private void RefreshGroupData()
         {
+            _controlled = true;
             if (GroupIDS.SelectedItem == null)
             {
                 DName.Text = "";
@@ -122,6 +136,7 @@ namespace Persiafighter.Programs.RocketConfigEditor
                 RemMem.Enabled = false;
                 RemoveGroup.Enabled = false;
             }
+            _controlled = false;
         }
 
         private void RemoveGroup_Click(object sender, EventArgs e)
@@ -263,11 +278,12 @@ namespace Persiafighter.Programs.RocketConfigEditor
         {
             _mem._rp.DefaultGroup = DefGroup.Text;
             _mem.Save();
-            Environment.Exit(0);
+            Close();
         }
 
         private void OpenFold_Click(object sender, EventArgs e)
         {
+            OpenRocket.Filter = "Rocket Permissions|" + Rocket.Core.Environment.PermissionFile;
             if (OpenRocket.ShowDialog() == DialogResult.OK)
             {
                 _mem.Load(OpenRocket.FileName);
@@ -282,8 +298,19 @@ namespace Persiafighter.Programs.RocketConfigEditor
 
         private void DefGroup_TextChanged(object sender, EventArgs e)
         {
+            if (DefGroup.Text == "")
+                DefGroup.Text = _oldid;
             if (GroupIDS.SelectedItem == null)
                 return;
+            var ind = GroupIDS.Items.IndexOf(DefGroup.Text);
+            if (ind != -1)
+                DefGroup.Text = _oldid;
+            RocketPermissionsGroup p = _mem._rp.Groups.Find(k => k.Id == _oldid);
+            var index = _mem._rp.Groups.IndexOf(p);
+            string oldid = p.Id;
+            p.Id = DefGroup.Text;
+            _mem._rp.Groups[index] = p;
+            GroupIDS.Items[GroupIDS.Items.IndexOf(oldid)] = DefGroup.Text;
             if (GroupIDS.SelectedItem.ToString() == DefGroup.Text)
             {
                 AddMem.Enabled = false;
@@ -295,6 +322,85 @@ namespace Persiafighter.Programs.RocketConfigEditor
                 AddMem.Enabled = true;
                 RemMem.Enabled = true;
                 RemoveGroup.Enabled = true;
+            }
+            _oldid = DefGroup.Text;
+        }
+
+        private void DName_TextChanged(object sender, EventArgs e)
+        {
+            if (!_controlled)
+            {
+                if (GroupIDS.SelectedItem == null)
+                    return;
+                RocketPermissionsGroup p = _mem._rp.Groups.Find(k => k.Id == GroupIDS.SelectedItem.ToString());
+                var index = _mem._rp.Groups.IndexOf(p);
+                p.DisplayName = DName.Text;
+                _mem._rp.Groups[index] = p;
+            }
+        }
+
+        private void Prefix_TextChanged(object sender, EventArgs e)
+        {
+            if (!_controlled)
+            {
+                if (GroupIDS.SelectedItem == null)
+                    return;
+                RocketPermissionsGroup p = _mem._rp.Groups.Find(k => k.Id == GroupIDS.SelectedItem.ToString());
+                var index = _mem._rp.Groups.IndexOf(p);
+                p.Prefix = Prefix.Text;
+                _mem._rp.Groups[index] = p;
+            }
+        }
+
+        private void Suffix_TextChanged(object sender, EventArgs e)
+        {
+            if (!_controlled)
+            {
+                if (GroupIDS.SelectedItem == null)
+                    return;
+                RocketPermissionsGroup p = _mem._rp.Groups.Find(k => k.Id == GroupIDS.SelectedItem.ToString());
+                var index = _mem._rp.Groups.IndexOf(p);
+                p.Suffix = Suffix.Text;
+                _mem._rp.Groups[index] = p;
+            }
+        }
+
+        private void CColor_TextChanged(object sender, EventArgs e)
+        {
+            if (!_controlled)
+            {
+                if (GroupIDS.SelectedItem == null)
+                    return;
+                RocketPermissionsGroup p = _mem._rp.Groups.Find(k => k.Id == GroupIDS.SelectedItem.ToString());
+                var index = _mem._rp.Groups.IndexOf(p);
+                p.Color = CColor.Text;
+                _mem._rp.Groups[index] = p;
+            }
+        }
+
+        private void PGroup_TextChanged(object sender, EventArgs e)
+        {
+            if (!_controlled)
+            {
+                if (GroupIDS.SelectedItem == null)
+                    return;
+                RocketPermissionsGroup p = _mem._rp.Groups.Find(k => k.Id == GroupIDS.SelectedItem.ToString());
+                var index = _mem._rp.Groups.IndexOf(p);
+                p.ParentGroup = PGroup.Text;
+                _mem._rp.Groups[index] = p;
+            }
+        }
+
+        private void Priority_ValueChanged(object sender, EventArgs e)
+        {
+            if (!_controlled)
+            {
+                if (GroupIDS.SelectedItem == null)
+                    return;
+                RocketPermissionsGroup p = _mem._rp.Groups.Find(k => k.Id == GroupIDS.SelectedItem.ToString());
+                var index = _mem._rp.Groups.IndexOf(p);
+                p.Priority = (short)Priority.Value;
+                _mem._rp.Groups[index] = p;
             }
         }
     }
