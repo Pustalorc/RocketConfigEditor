@@ -1,6 +1,7 @@
 ﻿using Rocket.API.Serialisation;
 using Rocket.Core.Serialization;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
@@ -26,6 +27,7 @@ namespace Persiafighter.Programs.RocketConfigEditor
         internal PermissionsMemory()
         {
             _rp = new RocketPermissions();
+            _rp.Groups = new List<RocketPermissionsGroup>() { new RocketPermissionsGroup(_rp.DefaultGroup, _rp.DefaultGroup, null, new List<string>(), new List<Permission>(), "white") };
         }
         internal PermissionsMemory(string rd)
         {
