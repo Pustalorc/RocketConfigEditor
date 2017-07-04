@@ -37,6 +37,7 @@
             this.Desc3 = new System.Windows.Forms.Label();
             this.Desc4 = new System.Windows.Forms.Label();
             this.Desc5 = new System.Windows.Forms.Label();
+            this.NotFileSystem = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // Desc1
@@ -71,7 +72,7 @@
             // Github
             // 
             this.Github.AutoSize = true;
-            this.Github.Location = new System.Drawing.Point(165, 165);
+            this.Github.Location = new System.Drawing.Point(165, 151);
             this.Github.Name = "Github";
             this.Github.Size = new System.Drawing.Size(64, 13);
             this.Github.TabIndex = 31;
@@ -82,7 +83,7 @@
             // Desc2
             // 
             this.Desc2.AutoSize = true;
-            this.Desc2.Location = new System.Drawing.Point(12, 165);
+            this.Desc2.Location = new System.Drawing.Point(12, 151);
             this.Desc2.Name = "Desc2";
             this.Desc2.Size = new System.Drawing.Size(153, 13);
             this.Desc2.TabIndex = 30;
@@ -91,7 +92,7 @@
             // AFind
             // 
             this.AFind.AutoSize = true;
-            this.AFind.Location = new System.Drawing.Point(15, 97);
+            this.AFind.Location = new System.Drawing.Point(15, 83);
             this.AFind.Name = "AFind";
             this.AFind.Size = new System.Drawing.Size(130, 17);
             this.AFind.TabIndex = 32;
@@ -101,7 +102,7 @@
             // Desc3
             // 
             this.Desc3.AutoSize = true;
-            this.Desc3.Location = new System.Drawing.Point(12, 117);
+            this.Desc3.Location = new System.Drawing.Point(12, 103);
             this.Desc3.Name = "Desc3";
             this.Desc3.Size = new System.Drawing.Size(207, 13);
             this.Desc3.TabIndex = 33;
@@ -110,7 +111,7 @@
             // Desc4
             // 
             this.Desc4.AutoSize = true;
-            this.Desc4.Location = new System.Drawing.Point(12, 130);
+            this.Desc4.Location = new System.Drawing.Point(12, 116);
             this.Desc4.Name = "Desc4";
             this.Desc4.Size = new System.Drawing.Size(214, 13);
             this.Desc4.TabIndex = 34;
@@ -119,17 +120,29 @@
             // Desc5
             // 
             this.Desc5.AutoSize = true;
-            this.Desc5.Location = new System.Drawing.Point(12, 143);
+            this.Desc5.Location = new System.Drawing.Point(12, 129);
             this.Desc5.Name = "Desc5";
             this.Desc5.Size = new System.Drawing.Size(47, 13);
             this.Desc5.TabIndex = 35;
             this.Desc5.Text = "is found.";
             // 
+            // NotFileSystem
+            // 
+            this.NotFileSystem.AutoSize = true;
+            this.NotFileSystem.Location = new System.Drawing.Point(112, 42);
+            this.NotFileSystem.Name = "NotFileSystem";
+            this.NotFileSystem.Size = new System.Drawing.Size(124, 17);
+            this.NotFileSystem.TabIndex = 36;
+            this.NotFileSystem.Text = "Don\'t Use Filesystem";
+            this.NotFileSystem.UseVisualStyleBackColor = true;
+            this.NotFileSystem.CheckedChanged += new System.EventHandler(this.NotFileSystem_CheckedChanged);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(234, 186);
+            this.ClientSize = new System.Drawing.Size(239, 171);
+            this.Controls.Add(this.NotFileSystem);
             this.Controls.Add(this.Desc5);
             this.Controls.Add(this.Desc4);
             this.Controls.Add(this.Desc3);
@@ -162,5 +175,6 @@
         private System.Windows.Forms.Label Desc3;
         private System.Windows.Forms.Label Desc4;
         private System.Windows.Forms.Label Desc5;
+        private System.Windows.Forms.CheckBox NotFileSystem;
     }
 }

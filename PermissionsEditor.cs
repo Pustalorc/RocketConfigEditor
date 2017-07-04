@@ -8,12 +8,27 @@ namespace Persiafighter.Programs.RocketConfigEditor
 {
     public partial class PermissionsEditor : Form
     {
-        internal PermissionsMemory _mem;
-        internal bool _controlled;
-        internal string _oldid;
-        public PermissionsEditor(string FilePath)
+        private PermissionsMemory _mem;
+        private bool _controlled;
+        private string _oldid;
+        private bool _fs;
+        public PermissionsEditor(string FilePath, bool FileSystem = true)
         {
             InitializeComponent();
+
+            if (!FileSystem)
+            {
+                OpenFold.Enabled = false;
+                _fs = FileSystem;
+                _mem = new PermissionsMemory();
+                Text = "Editing: Local GUI";
+                _oldid = _mem._rp.DefaultGroup;
+                DefGroup.Text = _mem._rp.DefaultGroup;
+                _mem._rp.Groups.ForEach(k => GroupIDS.Items.Add(k.Id));
+                GroupIDS.SelectedIndex = GroupIDS.Items.Count > 0 ? 0 : -1;
+                RefreshGroupData();
+                return;
+            }
 
             if (FilePath == "")
             {
@@ -27,6 +42,11 @@ namespace Persiafighter.Programs.RocketConfigEditor
                     _mem._rp.Groups.ForEach(k => GroupIDS.Items.Add(k.Id));
                     GroupIDS.SelectedIndex = GroupIDS.Items.Count > 0 ? 0 : -1;
                     RefreshGroupData();
+                    return;
+                }
+                else
+                {
+                    Load += (s, e) => Close();
                     return;
                 }
             }
@@ -43,15 +63,10 @@ namespace Persiafighter.Programs.RocketConfigEditor
         {
             string input = Microsoft.VisualBasic.Interaction.InputBox("Please specify a new ID for a permission group.", "New Permission Group", "");
             if (input == "")
-            {
                 return;
-            }
             var res = _mem._rp.Groups.Find(k => k.Id == input);
             if (res != null)
-            {
                 MessageBox.Show("A permission group with ID " + input + " already exists. Please specify a different ID.");
-                return;
-            }
             else
             {
                 res = new RocketPermissionsGroup(input, input, _mem._rp.DefaultGroup, new List<string>(), new List<Permission>(), "white");
@@ -173,15 +188,10 @@ namespace Persiafighter.Programs.RocketConfigEditor
             RocketPermissionsGroup p = _mem._rp.Groups.Find(k => k.Id == GroupIDS.SelectedItem.ToString());
             string input = Microsoft.VisualBasic.Interaction.InputBox("Please specify the permission to add.", "New Permission", "");
             if (input == "")
-            {
                 return;
-            }
             var i = p.Permissions.Find(k => k.Name == input);
             if (i != null)
-            {
                 MessageBox.Show("The permission " + input + " already exists. Please specify a different permission.");
-                return;
-            }
             else
             {
                 var index = _mem._rp.Groups.IndexOf(p);
@@ -277,7 +287,10 @@ namespace Persiafighter.Programs.RocketConfigEditor
         private void SExit_Click(object sender, EventArgs e)
         {
             _mem._rp.DefaultGroup = DefGroup.Text;
-            _mem.Save();
+            if (_fs)
+                _mem.Save();
+            else
+                _mem.CopyToClipboard();
             Close();
         }
 
@@ -402,6 +415,11 @@ namespace Persiafighter.Programs.RocketConfigEditor
                 p.Priority = (short)Priority.Value;
                 _mem._rp.Groups[index] = p;
             }
+        }
+
+        private void CClipboard_Click(object sender, EventArgs e)
+        {
+            _mem.CopyToClipboard();
         }
     }
 }

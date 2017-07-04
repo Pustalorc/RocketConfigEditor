@@ -19,10 +19,12 @@ namespace Persiafighter.Programs.RocketConfigEditor
         {
             InitializeComponent();
         }
+
         private void Github_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start("https://persiafighter.github.io/");
         }
+
         private void OPerms_Click(object sender, EventArgs e)
         {
             Hide();
@@ -34,9 +36,33 @@ namespace Persiafighter.Programs.RocketConfigEditor
                     Search(Rocket.Core.Environment.PermissionFile);
                 }
             }
-            new PermissionsEditor(FilePath).ShowDialog();
+            new PermissionsEditor(FilePath, !NotFileSystem.Checked).ShowDialog();
             FilePath = "";
             Show();
+        }
+
+        private void OCommands_Click(object sender, EventArgs e)
+        {
+            Hide();
+            if (AFind.Checked)
+            {
+                SearchLocal(Rocket.Core.Environment.CommandsFile);
+                if (FilePath == "")
+                {
+                    Search(Rocket.Core.Environment.CommandsFile);
+                }
+            }
+            new CommandsEditor(FilePath).ShowDialog();
+            FilePath = "";
+            Show();
+        }
+
+        private void NotFileSystem_CheckedChanged(object sender, EventArgs e)
+        {
+            if (AFind.Checked)
+                AFind.Checked = false;
+            AFind.Enabled = !NotFileSystem.Checked;
+            OCommands.Enabled = !NotFileSystem.Checked;
         }
 
         private void SearchLocal(string file)
@@ -103,22 +129,6 @@ namespace Persiafighter.Programs.RocketConfigEditor
                 }
                 catch (Exception) { }
             }
-        }
-
-        private void OCommands_Click(object sender, EventArgs e)
-        {
-            Hide();
-            if (AFind.Checked)
-            {
-                SearchLocal(Rocket.Core.Environment.CommandsFile);
-                if (FilePath == "")
-                {
-                    Search(Rocket.Core.Environment.CommandsFile);
-                }
-            }
-            new CommandsEditor(FilePath).ShowDialog();
-            FilePath = "";
-            Show();
         }
     }
 }

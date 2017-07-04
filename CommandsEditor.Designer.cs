@@ -44,6 +44,9 @@
             this.OpenFile = new System.Windows.Forms.OpenFileDialog();
             this.OpenFold = new System.Windows.Forms.Button();
             this.SExit = new System.Windows.Forms.Button();
+            this.CClipboard = new System.Windows.Forms.Button();
+            this.Github = new System.Windows.Forms.LinkLabel();
+            this.Desc11 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // Commands
@@ -116,7 +119,7 @@
             // 
             this.CNamespace.Location = new System.Drawing.Point(122, 175);
             this.CNamespace.Name = "CNamespace";
-            this.CNamespace.Size = new System.Drawing.Size(290, 20);
+            this.CNamespace.Size = new System.Drawing.Size(314, 20);
             this.CNamespace.TabIndex = 7;
             this.CNamespace.TextChanged += new System.EventHandler(this.CNamespace_TextChanged);
             // 
@@ -168,21 +171,21 @@
             // 
             // OpenFile
             // 
-            this.OpenFile.FileName = "OpenFile";
+            this.OpenFile.FileName = "Commands.config.xml";
             // 
             // OpenFold
             // 
-            this.OpenFold.Location = new System.Drawing.Point(158, 12);
+            this.OpenFold.Location = new System.Drawing.Point(236, 12);
             this.OpenFold.Name = "OpenFold";
-            this.OpenFold.Size = new System.Drawing.Size(166, 23);
+            this.OpenFold.Size = new System.Drawing.Size(112, 23);
             this.OpenFold.TabIndex = 29;
-            this.OpenFold.Text = "Select Different Permissions File";
+            this.OpenFold.Text = "Select Different File";
             this.OpenFold.UseVisualStyleBackColor = true;
             this.OpenFold.Click += new System.EventHandler(this.OpenFold_Click);
             // 
             // SExit
             // 
-            this.SExit.Location = new System.Drawing.Point(330, 12);
+            this.SExit.Location = new System.Drawing.Point(354, 12);
             this.SExit.Name = "SExit";
             this.SExit.Size = new System.Drawing.Size(82, 23);
             this.SExit.TabIndex = 28;
@@ -190,11 +193,44 @@
             this.SExit.UseVisualStyleBackColor = true;
             this.SExit.Click += new System.EventHandler(this.SExit_Click);
             // 
+            // CClipboard
+            // 
+            this.CClipboard.Location = new System.Drawing.Point(122, 12);
+            this.CClipboard.Name = "CClipboard";
+            this.CClipboard.Size = new System.Drawing.Size(108, 23);
+            this.CClipboard.TabIndex = 34;
+            this.CClipboard.Text = "Copy To Clipboard";
+            this.CClipboard.UseVisualStyleBackColor = true;
+            this.CClipboard.Click += new System.EventHandler(this.CClipboard_Click);
+            // 
+            // Github
+            // 
+            this.Github.AutoSize = true;
+            this.Github.Location = new System.Drawing.Point(371, 216);
+            this.Github.Name = "Github";
+            this.Github.Size = new System.Drawing.Size(64, 13);
+            this.Github.TabIndex = 36;
+            this.Github.TabStop = true;
+            this.Github.Text = "persiafighter";
+            this.Github.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.Github_LinkClicked);
+            // 
+            // Desc11
+            // 
+            this.Desc11.AutoSize = true;
+            this.Desc11.Location = new System.Drawing.Point(218, 216);
+            this.Desc11.Name = "Desc11";
+            this.Desc11.Size = new System.Drawing.Size(153, 13);
+            this.Desc11.TabIndex = 35;
+            this.Desc11.Text = "Programmed And Designed by:";
+            // 
             // CommandsEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(424, 238);
+            this.ClientSize = new System.Drawing.Size(447, 238);
+            this.Controls.Add(this.Github);
+            this.Controls.Add(this.Desc11);
+            this.Controls.Add(this.CClipboard);
             this.Controls.Add(this.OpenFold);
             this.Controls.Add(this.SExit);
             this.Controls.Add(this.label4);
@@ -240,5 +276,8 @@
         private System.Windows.Forms.OpenFileDialog OpenFile;
         private System.Windows.Forms.Button OpenFold;
         private System.Windows.Forms.Button SExit;
+        private System.Windows.Forms.Button CClipboard;
+        private System.Windows.Forms.LinkLabel Github;
+        private System.Windows.Forms.Label Desc11;
     }
 }

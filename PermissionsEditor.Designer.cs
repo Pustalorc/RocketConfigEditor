@@ -61,6 +61,7 @@
             this.Cooldown = new System.Windows.Forms.NumericUpDown();
             this.Desc12 = new System.Windows.Forms.Label();
             this.OpenRocket = new System.Windows.Forms.OpenFileDialog();
+            this.CClipboard = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.Priority)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Cooldown)).BeginInit();
             this.SuspendLayout();
@@ -304,11 +305,11 @@
             // 
             // OpenFold
             // 
-            this.OpenFold.Location = new System.Drawing.Point(317, 12);
+            this.OpenFold.Location = new System.Drawing.Point(376, 12);
             this.OpenFold.Name = "OpenFold";
-            this.OpenFold.Size = new System.Drawing.Size(166, 23);
+            this.OpenFold.Size = new System.Drawing.Size(107, 23);
             this.OpenFold.TabIndex = 27;
-            this.OpenFold.Text = "Select Different Permissions File";
+            this.OpenFold.Text = "Select Different File";
             this.OpenFold.UseVisualStyleBackColor = true;
             this.OpenFold.Click += new System.EventHandler(this.OpenFold_Click);
             // 
@@ -374,13 +375,24 @@
             // 
             // OpenRocket
             // 
-            this.OpenRocket.FileName = "Permissions.Configuration.xml";
+            this.OpenRocket.FileName = "Permissions.config.xml";
+            // 
+            // CClipboard
+            // 
+            this.CClipboard.Location = new System.Drawing.Point(262, 12);
+            this.CClipboard.Name = "CClipboard";
+            this.CClipboard.Size = new System.Drawing.Size(108, 23);
+            this.CClipboard.TabIndex = 33;
+            this.CClipboard.Text = "Copy To Clipboard";
+            this.CClipboard.UseVisualStyleBackColor = true;
+            this.CClipboard.Click += new System.EventHandler(this.CClipboard_Click);
             // 
             // PermissionsEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(583, 343);
+            this.Controls.Add(this.CClipboard);
             this.Controls.Add(this.Cooldown);
             this.Controls.Add(this.Desc12);
             this.Controls.Add(this.Priority);
@@ -462,5 +474,6 @@
         private System.Windows.Forms.NumericUpDown Cooldown;
         private System.Windows.Forms.Label Desc12;
         private System.Windows.Forms.OpenFileDialog OpenRocket;
+        private System.Windows.Forms.Button CClipboard;
     }
 }
