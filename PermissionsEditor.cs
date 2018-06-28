@@ -287,7 +287,7 @@ namespace Persiafighter.Programs.RocketConfigEditor
         private void SExit_Click(object sender, EventArgs e)
         {
             _mem._rp.DefaultGroup = DefGroup.Text;
-            if (_fs)
+            if (!_fs)
                 _mem.Save();
             else
                 _mem.CopyToClipboard();
